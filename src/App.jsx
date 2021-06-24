@@ -4,7 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, BrowserRouter as Router, Switch, Link } from "react-router-dom";
 import { Navbar, Nav, Form } from "react-bootstrap";
 
-import "./firebase/firebase";
 import firebase from "./firebase/firebase";
 import Home from "./components/Home/Home";
 import CodeScaner from "./components/CodeScaner/CodeScaner";
@@ -20,11 +19,25 @@ import { useEffect } from "react";
 const App = () => {
   // const [isTokenFound, setTokenFound] = useState(false);
 
+  window.onload = function Ejemplo1(params) {
+    setTimeout(() => {
+      new Notification("Hi there")
+
+    }, hora());
+  }
+  
+
+  function hora() {
+    let horaActual = new Date()
+    let horaProgramada = new Date();
+    horaProgramada.setHours(18);
+    horaProgramada.setMinutes(11);
+    horaProgramada.setSeconds(0);
+    return horaProgramada.getTime() - horaActual.getTime()
+  }
   useEffect(() => {
     const messaging = firebase.messaging();
-    messaging
-      .requestPermission()
-      .then(() => {
+    Notification.requestPermission().then(() => {
         return messaging.getToken();
       })
       .then((token) => {

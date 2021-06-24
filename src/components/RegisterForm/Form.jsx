@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import { useContext } from 'react';
 import { Button } from 'react-bootstrap'
 import firebase from '../../firebase/firebase'
+import { AuthContext } from '../../utils/Auth';
 
 export const Form = ()=>{
+    const { currentUser } = useContext(AuthContext);
     const [title, setTitle] = useState("")
-
     const handleOnChange = (e)=>{
         setTitle(e.target.value)
     }
@@ -14,7 +16,8 @@ export const Form = ()=>{
 
         const todo = {
             title,
-            complete: false
+            complete: false,
+            uid: currentUser.uid
         }
 
         todoRef.push(todo)
